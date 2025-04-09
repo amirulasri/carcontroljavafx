@@ -1,0 +1,78 @@
+.root {
+    -fx-background-image: url("background.jpg");
+    -fx-background-size: cover;
+}
+
+.tablestudent {
+    -fx-background-color: rgba(0, 0, 0, 0);
+}
+
+.tablestudent .column-header {
+    -fx-background-color: rgb(28, 225, 255);
+}
+
+.tablestudent .filler {
+    -fx-background-color: rgb(28, 225, 255);
+}
+
+.tablestudent .table-row-cell:odd {
+    -fx-background-color: rgb(173, 244, 255);
+}
+
+.tablestudent .table-row-cell:even {
+    -fx-background-color: rgb(210, 255, 248);
+}
+
+.tablestudent .table-row-cell:hover {
+    -fx-background-color: #99ff82;
+}
+
+.tablestudent .table-row-cell:filled:selected {
+    -fx-background-color: rgb(29, 193, 0) !important;
+}
+
+.primary-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 10px;
+}
+
+.primary-button:hover {
+    -fx-background-color: #45a049;
+}
+
+.danger-button {
+    -fx-background-color: #af4c4c;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 10px;
+}
+
+.danger-button:hover {
+    -fx-background-color: #a04545;
+}
+
+.menubar {
+    -fx-background-color: #00a2ff;
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.menubar .menu:hover {
+    -fx-background-color: #337835 !important;
+}
+
+.menubar .menu-item:hover {
+    -fx-background-color: #4CAF50 !important; /* Green background */
+}
+
+.labelcustom {
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-background-radius: 4px;
+    -fx-font-weight: bold;
+    -fx-padding: 2px;
+}
