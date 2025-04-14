@@ -19,12 +19,10 @@
                   <MenuItem mnemonicParsing="false" onAction="#disconnectAll" text="Disconnect" />
                   <MenuItem mnemonicParsing="false" onAction="#navigateToCameraView" text="Camera View" />
                   <MenuItem mnemonicParsing="false" onAction="#navigateToCapturedImageView" text="Captured Images" />
-                  <MenuItem mnemonicParsing="false" onAction="#navigateToCameraView" text="Image Favourite" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Help">
+            <Menu mnemonicParsing="false" text="App">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About" />
                   <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Close Application" />
                </items>
             </Menu>

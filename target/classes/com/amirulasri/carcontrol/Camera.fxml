@@ -2,10 +2,10 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -24,11 +24,11 @@
             <items>
               <MenuItem mnemonicParsing="false" onAction="#disconnectAll" text="Disconnect" />
                   <MenuItem mnemonicParsing="false" onAction="#navigateToHomeView" text="Car Control View" />
+                  <MenuItem mnemonicParsing="false" onAction="#navigateToCapturedImageView" text="Captured Images" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="App">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
                   <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Close Application" />
             </items>
           </Menu>
@@ -53,8 +53,8 @@
       </StackPane>
       <GridPane prefHeight="30.0" prefWidth="528.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="91.20003662109374" minWidth="91.20003662109374" prefWidth="91.20003662109374" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.40003662109376" minWidth="158.40003662109376" prefWidth="158.40003662109376" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="102.4000244140625" minWidth="102.4000244140625" prefWidth="102.4000244140625" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="158.40003662109376" minWidth="148.7999755859375" prefWidth="152.7999755859375" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="342.19996337890626" minWidth="342.19996337890626" prefWidth="342.19996337890626" />
         </columnConstraints>
         <rowConstraints>
@@ -62,13 +62,8 @@
         </rowConstraints>
          <children>
             <Button mnemonicParsing="false" onAction="#captureImage" styleClass="primary-button" text="Save image" />
-            <MenuButton mnemonicParsing="false" text="Auto save every 3 sec" GridPane.columnIndex="1">
-              <items>
-                <MenuItem mnemonicParsing="false" text="On" />
-                <MenuItem mnemonicParsing="false" text="Off" />
-              </items>
-            </MenuButton>
             <Button mnemonicParsing="false" onAction="#restartStream" styleClass="primary-button" text="Restart stream" GridPane.columnIndex="2" />
+            <CheckBox fx:id="autoSaveCheckBox" mnemonicParsing="false" onAction="#onAutoSaveToggle" text="Auto save every 3 sec" GridPane.columnIndex="1" />
          </children>
          <VBox.margin>
             <Insets left="15.0" />

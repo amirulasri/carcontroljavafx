@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox fx:id="homeviewlayout" prefHeight="427.0" prefWidth="654.0" spacing="10.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.amirulasri.carcontrol.controller.ViewImageController">
+   <children>
+      <MenuBar styleClass="menubar">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#disconnectAll" text="Disconnect" />
+                  <MenuItem mnemonicParsing="false" onAction="#navigateToCameraView" text="Camera View" />
+                  <MenuItem mnemonicParsing="false" onAction="#navigateToCapturedImageView" text="Captured Images" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="App">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Close Application" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image View">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="15.0" top="5.0" />
+         </VBox.margin>
+      </Text>
+      <Label text="View full details of selected image.">
+         <VBox.margin>
+            <Insets left="15.0" />
+         </VBox.margin></Label>
+      <GridPane prefHeight="234.0" prefWidth="654.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="373.5999755859375" minWidth="10.0" prefWidth="334.3999877929688" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="322.39996337890625" minWidth="10.0" prefWidth="320.0000122070313" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fx:id="capturedImageView" fitHeight="215.0" fitWidth="313.0" pickOnBounds="true" preserveRatio="true">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </ImageView>
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="5.0" GridPane.columnIndex="1">
+               <children>
+                  <Text fx:id="imagenametxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Image name">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="datecapturetxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Date captured">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="addedtofavtxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Added to favourite">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+         </children>
+      </GridPane>
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.40001220703124" minWidth="129.40001220703124" prefWidth="129.40001220703124" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="564.6000366210938" minWidth="10.0" prefWidth="524.5999877929687" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button mnemonicParsing="false" text="Download Image">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Button>
+            <Button layoutX="20.0" layoutY="12.0" mnemonicParsing="false" text="Delete Image" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+   </children>
+</VBox>

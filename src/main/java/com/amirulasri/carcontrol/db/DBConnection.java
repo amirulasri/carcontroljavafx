@@ -7,21 +7,16 @@ import java.sql.SQLException;
 public class DBConnection {
     private static Connection con;
 
-    public void getDBConn() throws SQLException {
-        if (getCon() == null || getCon().isClosed()) {
+    public static Connection getDBConn() throws SQLException {
+        if (con == null || con.isClosed()) {
             String url = "jdbc:mysql://localhost:3306/amirul_asri_projectswc4243";
             String user = "amirulasritestjavafx";
             String password = "ZlSLHwt*aE-8zRpO";
-            setCon(DriverManager.getConnection(url, user, password));
+            con = DriverManager.getConnection(url, user, password);
+            return con;
+        } else {
+            return con;
         }
-    }
-
-    public static Connection getCon() {
-        return con;
-    }
-
-    public static void setCon(Connection aCon) {
-        con = aCon;
     }
 
     public static void closeConnection() throws SQLException {

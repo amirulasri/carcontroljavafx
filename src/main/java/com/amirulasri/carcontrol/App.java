@@ -11,10 +11,8 @@ import java.io.IOException;
 import org.java_websocket.client.WebSocketClient;
 
 import com.amirulasri.carcontrol.db.DBConnection;
+import com.amirulasri.carcontrol.model.ImageData;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     private static Scene scene;
@@ -22,9 +20,12 @@ public class App extends Application {
     public static String cameraip;
     public static WebSocketClient webSocketClient;
 
+    // USE FOR TEMP EDITING AND DELETING IMAGE DATA
+    public static ImageData imageData;
+
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("ConnectCar"), 740, 460);
+        scene = new Scene(loadFXML("Camera"), 840, 460);
         scene.getStylesheets().add(App.class.getResource("appdesign.css").toExternalForm());
         stage.setTitle("Car Control with Image Capture");
         stage.setScene(scene);
@@ -63,11 +64,12 @@ public class App extends Application {
 
     public static void main(String[] args) {
         try {
-            DBConnection connection = new DBConnection();
-            connection.getDBConn();
+            DBConnection.getDBConn();
             launch();
         } catch (Exception e) {
             System.out.println("Error to start: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(0);
         }
     }
 

@@ -10,4 +10,5 @@ module com.amirulasri.carcontrol {
     opens com.amirulasri.carcontrol.controller;
     opens com.amirulasri.carcontrol to javafx.fxml;
     exports com.amirulasri.carcontrol;
+    exports com.amirulasri.carcontrol.model;
 }

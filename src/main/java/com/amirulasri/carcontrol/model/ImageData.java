@@ -1,23 +1,45 @@
 package com.amirulasri.carcontrol.model;
 
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
+import java.time.LocalDate;
+
 import javafx.scene.image.Image;
 
 public class ImageData {
-    private final SimpleStringProperty filename;
-    private final SimpleObjectProperty<Image> image;
+    private final int id;
+    private final String filename;
+    private final Image image;
+    private final LocalDate dateCaptured;
+    public enum addedToFavouriteType {
+        YES,
+        NO
+    };
+    private addedToFavouriteType addedToFavourite;
 
-    public ImageData(String filename, Image image) {
-        this.filename = new SimpleStringProperty(filename);
-        this.image = new SimpleObjectProperty<>(image);
+    public ImageData(int id, String filename, Image image, LocalDate dateCaptured, addedToFavouriteType addedToFavourite) {
+        this.id = id;
+        this.filename = filename;
+        this.image = image;
+        this.dateCaptured = dateCaptured;
+        this.addedToFavourite = addedToFavourite;
     }
 
-    public SimpleStringProperty getFilename() {
+    public String getFilename() {
         return filename;
     }
 
-    public SimpleObjectProperty<Image> getImage() {
+    public Image getImage() {
         return image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public LocalDate getDateCaptured() {
+        return dateCaptured;
+    }
+
+    public addedToFavouriteType getAddedToFavourite() {
+        return addedToFavourite;
     }
 }

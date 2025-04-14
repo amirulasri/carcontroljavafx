@@ -1,5 +1,6 @@
 package com.amirulasri.carcontrol.controller;
 
+import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -19,6 +20,9 @@ import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -29,6 +33,8 @@ import com.amirulasri.carcontrol.db.DBConnection;
 import javafx.application.Application;
 import java.awt.image.BufferedImage;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 
 public class CameraController extends Application {
@@ -40,13 +46,20 @@ public class CameraController extends Application {
     @FXML
     private ImageView imageView;
 
-    @FXML 
+    @FXML
     private StackPane imageContainer;
 
     private Image currentImage;
 
     @FXML
     private VBox cameraviewlayout;
+
+    // SCHEDULER AUTO SAVE
+    private ScheduledExecutorService scheduler;
+    private boolean isTaskRunning = false;
+
+    @FXML
+    private CheckBox autoSaveCheckBox;
 
     @FXML
     private void initialize() {
@@ -70,7 +83,7 @@ public class CameraController extends Application {
                     break;
             }
         });
-    
+
         cameraviewlayout.setOnKeyReleased(event -> {
             // Stop movement when any key is released
             stopMove();
@@ -195,44 +208,125 @@ public class CameraController extends Application {
     }
 
     @FXML
-private void captureImage() {
-    if (currentImage == null)
-        return;
-
-    try {
-        // Define the folder path
-        Path imagesFolderPath = Paths.get("Captured Images");
-        
-        // Create the folder if it doesn't exist
-        if (!Files.exists(imagesFolderPath)) {
-            Files.createDirectories(imagesFolderPath);
-        }
-
-        // Create timestamped file name
-        String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
-        String filename = "snapshot_" + timestamp + ".png";
-        File file = new File(imagesFolderPath.toFile(), filename);
-
-        // Convert currentImage to BufferedImage and save it
-        BufferedImage bufferedImage = javafx.embed.swing.SwingFXUtils.fromFXImage(currentImage, null);
-        ImageIO.write(bufferedImage, "png", file);
-        System.out.println("Snapshot saved: " + file.getAbsolutePath());
+    private void captureImage() {
+        if (currentImage == null)
+            return;
 
         try {
-            String insertSQL = "INSERT INTO `images`(`id`, `imagename`) VALUES (NULL,?)";
-            PreparedStatement preparedStatement = DBConnection.getCon().prepareStatement(insertSQL);
-            preparedStatement.setString(1, filename);
-            preparedStatement.executeUpdate();
-            System.out.println("Data inserted sucessfully");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error adding data", 0);
-            System.out.println("Error occurred: " + e.getMessage());
-        }
+            // Define the folder path
+            Path imagesFolderPath = Paths.get("Captured Images");
 
-    } catch (IOException e) {
-        e.printStackTrace();
+            // Create the folder if it doesn't exist
+            if (!Files.exists(imagesFolderPath)) {
+                Files.createDirectories(imagesFolderPath);
+            }
+
+            // Create timestamped file name
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            String filename = "snapshot_" + timestamp + ".png";
+            File file = new File(imagesFolderPath.toFile(), filename);
+
+            // Convert currentImage to BufferedImage and save it
+            BufferedImage bufferedImage = javafx.embed.swing.SwingFXUtils.fromFXImage(currentImage, null);
+            ImageIO.write(bufferedImage, "png", file);
+            System.out.println("Snapshot saved: " + file.getAbsolutePath());
+
+            try {
+                String insertSQL = "INSERT INTO `images`(`id`, `imagename`) VALUES (NULL,?)";
+                PreparedStatement preparedStatement = DBConnection.getDBConn().prepareStatement(insertSQL);
+                preparedStatement.setString(1, filename);
+                preparedStatement.executeUpdate();
+                System.out.println("Data inserted sucessfully");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Error adding data", 0);
+                System.out.println("Error occurred: " + e.getMessage());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
+
+    @FXML
+    private void insertEvery3Sec() {
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                if (currentImage == null){
+                    System.out.println("Image is null - Autosave");
+                    isTaskRunning = false;
+                    return null;
+                }
+
+                try {
+                    // Define the folder path
+                    Path imagesFolderPath = Paths.get("Captured Images");
+
+                    // Create the folder if it doesn't exist
+                    if (!Files.exists(imagesFolderPath)) {
+                        Files.createDirectories(imagesFolderPath);
+                    }
+
+                    // Create timestamped file name
+                    String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+                    String filename = "snapshot_" + timestamp + ".png";
+                    File file = new File(imagesFolderPath.toFile(), filename);
+
+                    // Convert currentImage to BufferedImage and save it
+                    BufferedImage bufferedImage = SwingFXUtils.fromFXImage(currentImage, null);
+                    ImageIO.write(bufferedImage, "png", file);
+                    System.out.println("Snapshot saved: " + file.getAbsolutePath());
+
+                    try {
+                        String insertSQL = "INSERT INTO `images`(`id`, `imagename`) VALUES (NULL,?)";
+                        PreparedStatement preparedStatement = DBConnection.getDBConn().prepareStatement(insertSQL);
+                        preparedStatement.setString(1, filename);
+                        preparedStatement.executeUpdate();
+                        System.out.println("Data inserted sucessfully after 3 sec");
+                    } catch (Exception e) {
+                        System.out.println("Error occurred: " + e.getMessage());
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    isTaskRunning = false;
+                }
+                return null;
+            }
+        };
+
+        new Thread(task).start();
+    }
+
+    private void startAutoSave() {
+        System.out.println("Auto save starts");
+        if (scheduler == null || scheduler.isShutdown()) {
+            scheduler = Executors.newSingleThreadScheduledExecutor();
+            scheduler.scheduleAtFixedRate(() -> {
+                if (!isTaskRunning) {
+                    isTaskRunning = true;
+                    insertEvery3Sec();
+                }
+            }, 0, 3, TimeUnit.SECONDS);
+        }
+    }
+
+    private void stopAutoSave() {
+        System.out.println("Auto save stopped");
+        if (scheduler != null && !scheduler.isShutdown()) {
+            scheduler.shutdownNow();
+        }
+    }
+
+    @FXML
+    private void onAutoSaveToggle() {
+        if (autoSaveCheckBox.isSelected()) {
+            startAutoSave();
+        } else {
+            stopAutoSave();
+        }
+    }
 
     @FXML
     private void closeApp() {
@@ -249,6 +343,11 @@ private void captureImage() {
     private void navigateToHomeView() throws IOException {
         stopStream();
         App.setRoot("Home");
+    }
+
+    @FXML
+    private void navigateToCapturedImageView() throws IOException {
+        App.setRoot("CapturedImage");
     }
 
     @Override
