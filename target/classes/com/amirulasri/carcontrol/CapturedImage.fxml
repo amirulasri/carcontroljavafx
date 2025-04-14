@@ -43,7 +43,7 @@
          <VBox.margin>
             <Insets left="15.0" />
          </VBox.margin></Label>
-      <TableView fx:id="imagetable" prefHeight="274.0" prefWidth="586.0">
+      <TableView fx:id="imagetable" prefHeight="274.0" prefWidth="586.0" styleClass="tabledata">
         <columns>
           <TableColumn fx:id="imagecol" prefWidth="251.20001828670502" text="Image" />
           <TableColumn fx:id="namecol" prefWidth="214.39996337890625" text="Name" />

@@ -3,31 +3,31 @@
     -fx-background-size: cover;
 }
 
-.tablestudent {
+.tabledata {
     -fx-background-color: rgba(0, 0, 0, 0);
 }
 
-.tablestudent .column-header {
+.tabledata .column-header {
     -fx-background-color: rgb(28, 225, 255);
 }
 
-.tablestudent .filler {
+.tabledata .filler {
     -fx-background-color: rgb(28, 225, 255);
 }
 
-.tablestudent .table-row-cell:odd {
+.tabledata .table-row-cell:odd {
     -fx-background-color: rgb(173, 244, 255);
 }
 
-.tablestudent .table-row-cell:even {
+.tabledata .table-row-cell:even {
     -fx-background-color: rgb(210, 255, 248);
 }
 
-.tablestudent .table-row-cell:hover {
+.tabledata .table-row-cell:hover {
     -fx-background-color: #99ff82;
 }
 
-.tablestudent .table-row-cell:filled:selected {
+.tabledata .table-row-cell:filled:selected {
     -fx-background-color: rgb(29, 193, 0) !important;
 }
 

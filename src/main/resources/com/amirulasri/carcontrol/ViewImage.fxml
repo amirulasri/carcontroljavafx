@@ -81,19 +81,19 @@
       </GridPane>
       <GridPane>
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.40001220703124" minWidth="129.40001220703124" prefWidth="129.40001220703124" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="564.6000366210938" minWidth="10.0" prefWidth="524.5999877929687" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="133.59998779296876" minWidth="133.59998779296876" prefWidth="133.59998779296876" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="564.6000366210938" minWidth="10.0" prefWidth="520.4000122070313" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" text="Download Image">
+            <Button mnemonicParsing="false" onAction="#downloadImage" styleClass="primary-button" text="Download Image">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Button>
-            <Button layoutX="20.0" layoutY="12.0" mnemonicParsing="false" text="Delete Image" GridPane.columnIndex="1" />
+            <Button layoutX="20.0" layoutY="12.0" mnemonicParsing="false" onAction="#deleteImage" styleClass="danger-button" text="Delete Image" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </children>

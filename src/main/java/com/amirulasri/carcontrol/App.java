@@ -25,7 +25,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("Camera"), 840, 460);
+        scene = new Scene(loadFXML("CapturedImage"), 840, 460);
         scene.getStylesheets().add(App.class.getResource("appdesign.css").toExternalForm());
         stage.setTitle("Car Control with Image Capture");
         stage.setScene(scene);
