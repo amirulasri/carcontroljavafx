@@ -40,7 +40,7 @@ import javafx.fxml.FXML;
 public class CameraController extends Application {
 
     private static final String STREAM_URL = "http://192.168.0.103:81/stream";
-    private volatile boolean streaming = false;
+    private static volatile boolean streaming = false;
     private Thread streamThread;
 
     @FXML
@@ -105,6 +105,7 @@ public class CameraController extends Application {
                                                                                              // toolbar/header
             }
         });
+        stopStream();
         startStream();
     }
 
@@ -347,11 +348,13 @@ public class CameraController extends Application {
 
     @FXML
     private void navigateToCapturedImageView() throws IOException {
+        stopStream();
         App.setRoot("CapturedImage");
     }
 
     @Override
     public void stop() {
+        System.out.println("Stopped Stream");
         stopStream(); // Ensure streaming stops on app exit
     }
 
